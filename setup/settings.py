@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.accounts",
     "apps.authentication",
+    "apps.observation",
 ]
 
 MIDDLEWARE = [
