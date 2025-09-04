@@ -6,8 +6,8 @@ class Material(models.Model):
     brands = models.CharField(max_length=255, verbose_name="brands", blank=False)
     description = models.TextField(verbose_name="description", blank=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
