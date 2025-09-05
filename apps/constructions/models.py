@@ -1,6 +1,6 @@
 from django.db import models
-from apps.observation.models import Observation
-from django.utils.translation import ugettext_lazy as _
+from apps.observations.models import Observation
+from django.utils.translation import gettext_lazy as _
 
 
 class Construction(models.Model):
@@ -11,9 +11,9 @@ class Construction(models.Model):
     num_adapted_units = models.IntegerField()
     land_area = models.DecimalField(max_digits=10, decimal_places=2)
 
-    observations = models.ManyToManyField(
-        Observation, "Observacao"
-    )  # Verificar melhor related name para um field externo.
+    # observations = models.ManyToManyField(
+    #     Observation, "Observacao"
+    # )  # Verificar melhor related name para um field externo.
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

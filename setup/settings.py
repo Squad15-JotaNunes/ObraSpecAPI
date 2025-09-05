@@ -43,14 +43,13 @@ INSTALLED_APPS = [
     "corsheaders",
     "simple_history",
     "drf_yasg",
-    # Apps
     "apps.core",
     "apps.accounts",
     "apps.authentication",
-    "apps.construction",
-    "apps.observation",
+    "apps.constructions",
+    "apps.observations",
     "apps.materials",
-    "apps.standard_model",
+    "apps.standard_models",
     "apps.referentials",
     "apps.elements",
 ]

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ObservationConfig(AppConfig):
+class ConstructionsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.observation"
+    name = "apps.constructions"

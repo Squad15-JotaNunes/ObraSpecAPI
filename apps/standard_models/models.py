@@ -1,5 +1,5 @@
 from django.db import models
-from apps.observation.models import Observation
+from apps.observations.models import Observation
 
 
 # Create your models here.
