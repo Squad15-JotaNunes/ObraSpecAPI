@@ -1,0 +1,2 @@
+python manage.py check --> Antes de qualquer commit para verificar erros no código.
+black . --> Antes de qualquer commit para formatar estrutura do código.

@@ -7,6 +7,7 @@ class UserType(models.TextChoices):
     SPECIFIER = "specifier", "Specifier"
     REVIEWER = "reviewer", "Reviewer"
 
+
 class UserPermissions(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField(
