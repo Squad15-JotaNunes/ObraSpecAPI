@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "apps.standard_models",
     "apps.referentials",
     "apps.elements",
+    "apps.areas",
 ]
 
 
