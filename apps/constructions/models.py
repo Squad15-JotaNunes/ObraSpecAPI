@@ -45,5 +45,41 @@ class Construction(models.Model):
 
     is_active = models.BooleanField(default=True, verbose_name=_("Is active"))
 
+
     def __str__(self):
         return self.project_name
+    
+
+class ConstructionReferential(models.Model):
+    construction = models.ForeignKey(Construction, on_delete=models.CASCADE)
+    referential = models.ForeignKey(Referential, on_delete=models.CASCADE)
+
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["construction", "referentials"],
+                name="unique_construction_referential"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.construction.project_name} - {self.referential.name}"
+
+
+class ConstructionObservation(models.Model):
+    construction = models.ForeignKey(Construction, on_delete=models.CASCADE)
+    observation = models.ForeignKey(Observation, on_delete=models.CASCADE)
+  
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["construction", "observations"],
+                name="unique_construction_observation"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.construction.project_name} - {self.observation}"
+ 
