@@ -13,6 +13,6 @@ class ObservationSerializer(serializers.ModelSerializer):
     def validate_description(self, value):
         if len(value.strip()) <= 0:
             raise serializers.ValidationError(
-               "The field description must be greater than 0 chars"
+                "The field description must be greater than 0 chars"
             )
         return value

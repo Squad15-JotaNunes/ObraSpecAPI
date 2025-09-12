@@ -6,6 +6,7 @@ from .services.get_one_observation import OneObservationService
 from .services.updated_observation import UpdatedObservation
 from .services.delete import DeleteObservationService
 
+
 class ObservationsListAPIView(APIView):
     def get(self, request):
         return ListAllObservationService.service()

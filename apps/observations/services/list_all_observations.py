@@ -4,6 +4,7 @@ from rest_framework import status
 from ..models import Observation
 from ..serializers import ObservationSerializer
 
+
 class ListAllObservationService:
     @staticmethod
     def service():
