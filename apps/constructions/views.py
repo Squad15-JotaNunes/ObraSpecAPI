@@ -1,29 +1,67 @@
-from django.shortcuts import render
 
-# Create your views here.
 from rest_framework.views import APIView
-
-from .services.create import CreateConstructionService
-from .services.list_all import ListConstructionService
-from .services.get_one import RetrieveConstructionService
-from .services.updated import UpdateConstructionService
-from .services.delete import DeleteConstructionService
-
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import ConstructionSerializer
+from .services.construction_service import ConstructionService
 
 class ConstructionsListAPIView(APIView):
     def get(self, request):
-        return ListConstructionService.service()
+        try:
+            constructions = ConstructionService.index()
+            serializer = ConstructionSerializer(constructions, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as error:
+            return Response({"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def post(self, request):
-        return CreateConstructionService.service(request)
+        try:
+            construction = ConstructionService.store(request.data)
+            serializer = ConstructionSerializer(construction)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as error: 
+            return Response({"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ConstructionsDetailAPIView(APIView):
     def get(self, request, pk):
-        return RetrieveConstructionService.service(pk)
+        try: 
+            construction = ConstructionService.show(pk)
+            serializer = ConstructionSerializer(construction)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Construction.DoesNotExist:
+            return Response({"error": "Construction not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as error: 
+            return Response({"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def patch(self, request, pk):
-        return UpdateConstructionService.service(pk, request.data)
+        def patch(self, request, pk):
+        try:
+            serializer = ConstructionService.update(pk, request.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Construction.DoesNotExist:
+            return Response(
+                {"error": "Construction not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as error: 
+            return Response(
+                {"error": str(error)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
 
     def delete(self, request, pk):
-        return DeleteConstructionService.service(pk)
+        try:
+            ConstructionService.destroy(pk)
+            return Response(
+                {"message": "Construction deleted successfully"},
+                status=status.HTTP_204_NO_CONTENT
+            )
+        except Construction.DoesNotExist:
+            return Response(
+                {"error": "Construction not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        
