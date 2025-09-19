@@ -1,8 +1,6 @@
 from django.urls import path
 
-from .views.brand import BrandDetailAPIView, BrandListAPIView
-from .views.material_type import MaterialTypeListAPIView, MaterialTypeDetailApiView
-from .views.materials import MaterialsListAPIView, MaterialsDetailApiView
+from .views import *
 
 app_name = "materials"
 
