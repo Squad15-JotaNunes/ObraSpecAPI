@@ -38,6 +38,7 @@ urlpatterns = [
     path("observations/", include("apps.observations.urls")),
     path("materials/", include("apps.materials.urls")),
     path("elements/", include("apps.elements.urls")),
+    path("areas/", include("apps.areas.urls")),
     path("referentials/", include("apps.referentials.urls")),
     re_path(
         r"^swagger(?P<format>\.json|\.yaml)$",
