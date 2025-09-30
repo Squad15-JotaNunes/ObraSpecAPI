@@ -4,10 +4,16 @@ from django.utils.translation import gettext_lazy as _
 
 class Brand(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class MaterialType(models.Model):
     name = models.CharField(_("Material Type Name"), max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.name
 
 
 # SetBrandMaterialType
@@ -26,4 +32,4 @@ class Material(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.material_type} - {self.brand}"
+        return f"{self.material_type.name} - {self.brand.name}"

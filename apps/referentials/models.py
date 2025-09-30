@@ -19,4 +19,5 @@ class Referential(models.Model):
     comment = models.TextField(max_length=500, blank=True)
 
     def __str__(self):
-        return f"Referential: {self.referential_name.name} - {self.areas}"
+        areas_list = ", ".join([str(a) for a in self.areas.all()])
+        return f"Referential: {self.referential_name.name} - [{areas_list if areas_list else 'None'}]"

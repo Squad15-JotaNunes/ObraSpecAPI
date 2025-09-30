@@ -19,4 +19,5 @@ class Area(models.Model):
     elements = models.ManyToManyField(Element, related_name="areas")
 
     def __str__(self):
-        return f"Area: {self.area_name.name} - {self.elements}"
+        elements_list = ", ".join([str(e) for e in self.elements.all()])
+        return f"Area: {self.area_name.name} - {elements_list if elements_list else 'None'}"

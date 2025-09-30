@@ -19,4 +19,5 @@ class Element(models.Model):
     # Talvez adicionar Meta -> UniqueConstraint para evitar recorrências iguais de element_type e materials
 
     def __str__(self):
-        return f"Element: {self.element_type.name} - {self.materials}"
+        materials_list = ", ".join([str(e) for e in self.materials.all()])
+        return f"Element: {self.element_type.name} - {materials_list if materials_list else 'None'}"
