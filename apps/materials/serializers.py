@@ -1,15 +1,8 @@
 from rest_framework import serializers
-
 from apps.materials.models import Brand, Material, MaterialType
 
 
 class BrandSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Brand
-        fields = ["id", "name"]
-
-    id = serializers.IntegerField(read_only=True)
 
     def validate_name(self, value):
         if len(value.strip()) == 0 or len(value) > 50:
@@ -18,14 +11,12 @@ class BrandSerializer(serializers.ModelSerializer):
             )
         return value
 
-
-class MaterialTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
-        model = MaterialType
+        model = Brand
         fields = ["id", "name"]
 
-    id = serializers.IntegerField(read_only=True)
+
+class MaterialTypeSerializer(serializers.ModelSerializer):
 
     def validate_name(self, value):
         if len(value) <= 0 or len(value) > 50:
@@ -34,21 +25,13 @@ class MaterialTypeSerializer(serializers.ModelSerializer):
             )
         return value
 
-
-class MaterialsSerializer(serializers.ModelSerializer):
-
     class Meta:
-        model = Material
-        fields = [
-            "id",
-            "description",
-            "brand",
-            "brand_name",
-            "material_type",
-            "material_type_name",
-        ]
+        model = MaterialType
+        fields = ["id", "name"]
 
-    id = serializers.IntegerField(read_only=True)
+
+class MaterialSerializer(serializers.ModelSerializer):
+
     brand_name = serializers.CharField(source="brand.name", read_only=True)
     material_type_name = serializers.CharField(
         source="material_type.name", read_only=True
@@ -67,9 +50,13 @@ class MaterialsSerializer(serializers.ModelSerializer):
                 )
         return attrs
 
-    def validate_description(self, value):
-        if len(value) <= 0:
-            raise serializers.ValidationError(
-                "The description must be greater than 0 chars"
-            )
-        return value
+    class Meta:
+        model = Material
+        fields = [
+            "id",
+            "description",
+            "brand",
+            "brand_name",
+            "material_type",
+            "material_type_name",
+        ]
