@@ -1,19 +1,13 @@
 from rest_framework import serializers
 from .models import Referential, ReferentialName
 from apps.areas.models import Area
+from apps.areas.serializers import AreaSerializer
 
 
 class ReferentialNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReferentialName
         fields = ["id", "name"]
-
-
-class AreaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Area
-        fields = ["id", "name"]  # ajuste conforme os campos que seu model `Area` tiver
-
 
 class ReferentialSerializer(serializers.ModelSerializer):
     referential_name = ReferentialNameSerializer(read_only=True)
