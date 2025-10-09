@@ -18,15 +18,3 @@ class StandardModel(models.Model):
     def __str__(self):
         return self.name
 
-    def create_construction(self, project_name, location, description):
-        construction = Construction.objects.create(
-            project_name=project_name,
-            location=location,
-            description=description,
-            num_housing_units=self.num_housing_units,
-            num_adapted_units=self.num_adapted_units,
-            land_area=self.land_area,
-        )
-        construction.referentials.set(self.referentials.all())
-        construction.observations.set(self.observations.all())
-        return construction
