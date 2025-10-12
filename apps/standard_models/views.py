@@ -1,10 +1,10 @@
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
 from apps.constructions.models import Construction
-from .serializers import StandardModelSerializer
-from .services.standard_model_service import StandardModelService
-from .models import StandardModel
+from apps.standard_models.models import StandardModel
+from apps.standard_models.services import StandardModelService
+from apps.standard_models.serializer import StandardModelSerializer
 
 
 class StandardModelListAPIView(APIView):
@@ -15,44 +15,9 @@ class StandardModelListAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as error:
             return Response(
-                {"error": str(error)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
-    def post(self, request):
-        try:
-            data = request.data.copy()
-            construction_id = data.get("construction_id")
-
-            if construction_id:
-                try:
-                    construction = Construction.objects.get(id=construction_id)
-                except Construction.DoesNotExist:
-                    return Response(
-                        {"error": "Construction not found"},
-                        status=status.HTTP_404_NOT_FOUND
-                    )
-
-                data.setdefault("num_housing_units", construction.num_housing_units)
-                data.setdefault("num_adapted_units", construction.num_adapted_units)
-                data.setdefault("land_area", construction.land_area)
-                data.setdefault("referentials", [r.id for r in construction.referentials.all()])
-                data.setdefault("observations", [o.id for o in construction.observations.all()])
-
-            serializer = StandardModelSerializer(data=data)
-            serializer.is_valid(raise_exception=True)
-
-            standard_model = StandardModelService.store(serializer.validated_data)
-            output = StandardModelSerializer(standard_model)
-
-            return Response(output.data, status=status.HTTP_201_CREATED)
-
-        except Exception as error:
-            return Response(
-                {"error": str(error)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
+        
 
 class StandardModelDetailAPIView(APIView):
     def get(self, request, pk):
@@ -62,13 +27,11 @@ class StandardModelDetailAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except StandardModel.DoesNotExist:
             return Response(
-                {"error": "Standard model not found"},
-                status=status.HTTP_404_NOT_FOUND
+                {"error": "Standard model not found"}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as error:
             return Response(
-                {"error": str(error)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
     def patch(self, request, pk):
@@ -77,13 +40,11 @@ class StandardModelDetailAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except StandardModel.DoesNotExist:
             return Response(
-                {"error": "Standard model not found"},
-                status=status.HTTP_404_NOT_FOUND
+                {"error": "Standard model not found"}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as error:
             return Response(
-                {"error": str(error)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
     def delete(self, request, pk):
@@ -91,13 +52,36 @@ class StandardModelDetailAPIView(APIView):
             StandardModelService.destroy(pk)
             return Response(
                 {"message": "Standard model deleted successfully"},
-                status=status.HTTP_204_NO_CONTENT
+                status=status.HTTP_204_NO_CONTENT,
             )
         except StandardModel.DoesNotExist:
             return Response(
-                {"error": "Standard model not found"},
+                {"error": "Standard model not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as error:
+            return Response(
+                {"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    def post(self, request, pk):
+        try:
+            standard_model_name = request.data.get("name")
+            construction = Construction.objects.get(pk=pk)
+
+            standard_model = StandardModel.objects.create(name=standard_model_name)
+
+            standard_model.referentials.set(construction.referentials.all())
+            standard_model.observations.set(construction.observations.all())
+
+            serializer = StandardModelSerializer(standard_model)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        except Construction.DoesNotExist:
+            return Response(
+                {"error": "Construction model not found"},
                 status=status.HTTP_404_NOT_FOUND
             )
+
         except Exception as error:
             return Response(
                 {"error": str(error)},
