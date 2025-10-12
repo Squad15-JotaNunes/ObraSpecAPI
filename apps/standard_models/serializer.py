@@ -18,9 +18,6 @@ class StandardModelSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
-            "num_housing_units",
-            "num_adapted_units",
-            "land_area",
             "referentials",
             "observations",
         ]

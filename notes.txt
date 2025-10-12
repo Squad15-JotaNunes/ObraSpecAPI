@@ -1,2 +1,10 @@
 python manage.py check --> Antes de qualquer commit para verificar erros no código.
 black . --> Antes de qualquer commit para formatar estrutura do código.
+
+SuperUser for testing:
+admin
+admin
+
+User for testing:
+Tester
+Defaultpassword123
