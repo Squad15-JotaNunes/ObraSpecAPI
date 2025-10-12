@@ -16,23 +16,23 @@ class Construction(models.Model):
         max_length=1000, null=False, verbose_name=_("Description")
     )
 
-    num_housing_units = models.IntegerField(
-        verbose_name=_("Number housing units"),
-        default=0,
-        validators=[MinValueValidator(0)],
-    )
+    # num_housing_units = models.IntegerField(
+    #     verbose_name=_("Number housing units"),
+    #     default=0,
+    #     validators=[MinValueValidator(0)],
+    # )
 
-    num_adapted_units = models.IntegerField(
-        verbose_name=_("Number adapted units"),
-        default=0,
-        validators=[MinValueValidator(0)],
-    )
+    # num_adapted_units = models.IntegerField(
+    #     verbose_name=_("Number adapted units"),
+    #     default=0,
+    #     validators=[MinValueValidator(0)],
+    # )
 
-    land_area = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name=_("Land area"),
-    )
+    # land_area = models.DecimalField(
+    #     max_digits=10,
+    #     decimal_places=2,
+    #     verbose_name=_("Land area"),
+    # )
 
     referentials = models.ManyToManyField(
         Referential, verbose_name=_(""), related_name="constructions"

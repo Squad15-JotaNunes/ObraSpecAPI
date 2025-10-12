@@ -5,7 +5,6 @@ from apps.observations.models import Observation
 
 
 class ConstructionSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
     referentials = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Referential.objects.all()
     )
@@ -20,9 +19,9 @@ class ConstructionSerializer(serializers.ModelSerializer):
             "project_name",
             "location",
             "description",
-            "num_housing_units",
-            "num_adapted_units",
-            "land_area",
+            # "num_housing_units",
+            # "num_adapted_units",
+            # "land_area",
             "referentials",
             "observations",
             "is_active",
@@ -37,7 +36,5 @@ class ConstructionSerializer(serializers.ModelSerializer):
 
     def validate_description(self, value):
         if len(value.strip()) <= 0:
-            raise serializers.ValidationError(
-                "The field description must not be empty"
-            )
+            raise serializers.ValidationError("The field description must not be empty")
         return value
