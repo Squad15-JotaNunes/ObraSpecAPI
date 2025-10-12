@@ -40,6 +40,7 @@ urlpatterns = [
     path("elements/", include("apps.elements.urls")),
     path("areas/", include("apps.areas.urls")),
     path("referentials/", include("apps.referentials.urls")),
+    path("standard-models/", include("apps.standard_models.urls")),
     re_path(
         r"^swagger(?P<format>\.json|\.yaml)$",
         schema_view.without_ui(cache_timeout=0),
