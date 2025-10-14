@@ -41,6 +41,7 @@ urlpatterns = [
     path("areas/", include("apps.areas.urls")),
     path("referentials/", include("apps.referentials.urls")),
     path("standard-models/", include("apps.standard_models.urls")),
+    path("accounts/", include("apps.accounts.urls")),
     re_path(
         r"^swagger(?P<format>\.json|\.yaml)$",
         schema_view.without_ui(cache_timeout=0),
