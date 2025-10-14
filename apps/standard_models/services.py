@@ -1,5 +1,5 @@
-from ..models import StandardModel
-from ..serializers import StandardModelSerializer
+from apps.standard_models.models import StandardModel
+from apps.standard_models.serializer import StandardModelSerializer
 
 
 class StandardModelService:
