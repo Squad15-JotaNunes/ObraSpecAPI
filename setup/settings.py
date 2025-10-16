@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "apps.referentials",
     "apps.elements",
     "apps.areas",
+   
 ]
 
 
@@ -68,6 +69,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "setup.urls"
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
