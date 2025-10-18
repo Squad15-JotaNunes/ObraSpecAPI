@@ -72,6 +72,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "setup.urls"
 CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = ["https://obraspecapi.onrender.com"]
 
 TEMPLATES = [
     {
@@ -114,11 +115,7 @@ WSGI_APPLICATION = "setup.wsgi.application"
 # }
 
 DATABASES = {
-    "default": dj_database_url.parse(
-        DATABASE_URL,
-        conn_max_age=600,
-        ssl_require=True
-    )
+    "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
 }
 
 # Password validation
