@@ -13,9 +13,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATABASE_URL = config("DATABASE_URL")
 
 
 # Quick-start development settings - unsuitable for production
@@ -99,17 +102,24 @@ WSGI_APPLICATION = "setup.wsgi.application"
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config("DATABASE_NAME"),
-        'USER': config("USER_DATABASE"),
-        'PASSWORD': config("PASSWORD_DABATASE"),
-        'HOST': config("HOST_DATABASE"),
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config("DATABASE_NAME"),
+#         'USER': config("USER_DATABASE"),
+#         'PASSWORD': config("PASSWORD_DABATASE"),
+#         'HOST': config("HOST_DATABASE"),
+#         'PORT': '5432',
+#     }
+# }
 
+DATABASES = {
+    "default": dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

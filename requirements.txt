@@ -1,6 +1,7 @@
 asgiref==3.9.1
 black==25.1.0
 click==8.2.1
+dj-database-url==3.0.1
 Django==5.2.5
 django-cors-headers==4.7.0
 django-simple-history==3.10.1
