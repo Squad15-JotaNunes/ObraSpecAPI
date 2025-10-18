@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     "apps.referentials",
     "apps.elements",
     "apps.areas",
-   
 ]
 
 
@@ -92,10 +91,22 @@ WSGI_APPLICATION = "setup.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Development and testing
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config("DATABASE_NAME"),
+        'USER': config("USER_DATABASE"),
+        'PASSWORD': config("PASSWORD_DABATASE"),
+        'HOST': config("HOST_DATABASE"),
+        'PORT': '5432',
     }
 }
 
