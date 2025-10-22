@@ -17,7 +17,7 @@ class StandardModelListAPIView(APIView):
             return Response(
                 {"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-        
+
 
 class StandardModelDetailAPIView(APIView):
     def get(self, request, pk):
@@ -79,11 +79,10 @@ class StandardModelDetailAPIView(APIView):
         except Construction.DoesNotExist:
             return Response(
                 {"error": "Construction model not found"},
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_404_NOT_FOUND,
             )
 
         except Exception as error:
             return Response(
-                {"error": str(error)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

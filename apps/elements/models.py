@@ -20,4 +20,4 @@ class Element(models.Model):
 
     def __str__(self):
         materials_list = ", ".join([str(e) for e in self.materials.all()])
-        return f"Element: {self.element_type.name} - {materials_list if materials_list else 'None'}"
+        return f"{self.element_type.name} - [{materials_list if materials_list else 'None'}]"

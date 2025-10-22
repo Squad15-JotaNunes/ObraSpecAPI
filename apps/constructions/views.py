@@ -73,7 +73,7 @@ class ConstructionsDetailAPIView(APIView):
 
 class ConstructionBasedStandardModelsAPIView(APIView):
     def post(self, request, pk):
-        construction_project_name =request.data.get("project_name")
+        construction_project_name = request.data.get("project_name")
         location = request.data.get("location")
         description = request.data.get("description")
 

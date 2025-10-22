@@ -17,7 +17,7 @@ class ElementTypeListAPIView(APIView):
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = ElementTypeSerializer(data=request.data)
+        serializer = ElementTypeSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)
@@ -31,7 +31,9 @@ class ElementTypeDetailAPIView(APIView):
 
     def patch(self, request, pk):
         element_type = ElementTypeServices.get(pk)
-        serializer = ElementTypeSerializer(element_type, data=request.data, partial=True)
+        serializer = ElementTypeSerializer(
+            element_type, data=request.data, partial=True
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
@@ -48,7 +50,7 @@ class ElementsListAPIView(APIView):
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = ElementSerializer(data=request.data)
+        serializer = ElementSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)

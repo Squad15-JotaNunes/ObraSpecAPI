@@ -9,20 +9,18 @@ class ReferentialNameSerializer(serializers.ModelSerializer):
         model = ReferentialName
         fields = ["id", "name"]
 
+
 class ReferentialSerializer(serializers.ModelSerializer):
     referential_name = ReferentialNameSerializer(read_only=True)
     referential_name_id = serializers.PrimaryKeyRelatedField(
         queryset=ReferentialName.objects.all(),
         source="referential_name",
-        write_only=True
+        write_only=True,
     )
 
     areas = AreaSerializer(many=True, read_only=True)
     areas_ids = serializers.PrimaryKeyRelatedField(
-        queryset=Area.objects.all(),
-        many=True,
-        source="areas",
-        write_only=True
+        queryset=Area.objects.all(), many=True, source="areas", write_only=True
     )
 
     class Meta:

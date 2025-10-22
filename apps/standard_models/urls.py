@@ -5,5 +5,7 @@ app_name = "standard_model"
 
 urlpatterns = [
     path("", StandardModelListAPIView.as_view(), name="standard_model_list"),
-    path("<int:pk>/", StandardModelDetailAPIView.as_view(), name="standard_model_detail"),
+    path(
+        "<int:pk>/", StandardModelDetailAPIView.as_view(), name="standard_model_detail"
+    ),
 ]

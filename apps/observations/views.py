@@ -25,7 +25,7 @@ class ObservationsDetailAPIView(APIView):
     # Testado e ok
     def get(self, request, pk):
         observation = ObservationsServices.get(pk)
-        serializer = ObservationSerializer(observation) 
+        serializer = ObservationSerializer(observation)
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
 
     # Testado e ok
@@ -35,7 +35,7 @@ class ObservationsDetailAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
-    
+
     # Testado e ok
     def delete(self, request, pk):
         ObservationsServices.delete(pk)
