@@ -14,6 +14,7 @@ from datetime import timedelta
 from pathlib import Path
 from decouple import config
 import dj_database_url
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,6 +37,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -173,4 +175,24 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+JAZZMIN_SETTINGS = {
+    "site_title": _("ObraSpec Admin"),
+    "site_header": _("ObraSpec API"),
+    "site_brand": _("ObraSpec API"),
+    "welcome_sign": _("Welcome to ObraSpec Admin!"),
+    "site_logo": None,
+
+    "topmenu_links": [
+        {"name": _("Home"), "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"model": "auth.User"},
+        {"name": "Github", "url": "https://github.com/Squad15-JotaNunes/ObraSpecAPI/", "new_window": True},
+    ],
+
+    "user_avatar": None,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly",
 }
