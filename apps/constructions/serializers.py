@@ -19,13 +19,22 @@ class ConstructionSerializer(serializers.ModelSerializer):
             "project_name",
             "location",
             "description",
-            # "num_housing_units",
-            # "num_adapted_units",
-            # "land_area",
             "referentials",
             "observations",
             "is_active",
         ]
+
+    def create(self, validated_data):
+        referentials = validated_data.pop('referentials', [])
+        observations = validated_data.pop('observations', [])
+
+        construction = Construction.objects.create(**validated_data)
+
+        # associa os m2m após a criação
+        construction.referentials.set(referentials)
+        construction.observations.set(observations)
+
+        return construction
 
     def validate_project_name(self, value):
         if len(value.strip()) <= 0:

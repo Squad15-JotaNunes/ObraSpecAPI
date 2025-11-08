@@ -21,8 +21,9 @@ class ConstructionsListAPIView(APIView):
 
     def post(self, request):
         try:
-            construction = ConstructionService.store(request.data)
-            serializer = ConstructionSerializer(construction)
+            serializer = ConstructionSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True) 
+            construction = serializer.save() 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as error:
             return Response(
