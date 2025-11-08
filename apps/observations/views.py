@@ -15,7 +15,7 @@ class ObservationsListAPIView(APIView):
 
     # Testado e ok
     def post(self, request):
-        serializer = ObservationSerializer(data=request.data)
+        serializer = ObservationSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)

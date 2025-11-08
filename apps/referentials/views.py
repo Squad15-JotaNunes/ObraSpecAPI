@@ -14,7 +14,7 @@ class ReferentialNameListAPIView(APIView):
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = ReferentialNameSerializer(data=request.data, many=False)
+        serializer = ReferentialNameSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)
@@ -48,7 +48,7 @@ class ReferentialListAPIView(APIView):
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = ReferentialSerializer(data=request.data, many=False)
+        serializer = ReferentialSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)

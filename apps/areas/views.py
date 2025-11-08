@@ -1,6 +1,8 @@
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from drf_yasg.utils import swagger_auto_schema
+
 
 from .services import AreaNameServices, AreaServices
 from apps.areas.serializers import (
@@ -15,8 +17,9 @@ class AreaNameListAPIView(APIView):
         serializer = AreaNameSerializer(area_names, many=True)
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(request_body=AreaNameSerializer,)
     def post(self, request):
-        serializer = AreaNameSerializer(data=request.data)
+        serializer = AreaNameSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)
@@ -47,7 +50,7 @@ class AreaListAPIView(APIView):
         return Response({"data": serializer.data}, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = AreaSerializer(data=request.data)
+        serializer = AreaSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)
