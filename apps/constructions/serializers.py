@@ -1,16 +1,14 @@
 from rest_framework import serializers
 from .models import Construction
 from apps.referentials.models import Referential
-from apps.observations.models import Observation
+from apps.observations.serializers import ObservationSerializer
 
 
 class ConstructionSerializer(serializers.ModelSerializer):
     referentials = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Referential.objects.all()
     )
-    observations = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Observation.objects.all()
-    )
+    observations = ObservationSerializer(many=True, read_only=True)
 
     class Meta:
         model = Construction
@@ -25,8 +23,8 @@ class ConstructionSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        referentials = validated_data.pop('referentials', [])
-        observations = validated_data.pop('observations', [])
+        referentials = validated_data.pop("referentials", [])
+        observations = validated_data.pop("observations", [])
 
         construction = Construction.objects.create(**validated_data)
 
