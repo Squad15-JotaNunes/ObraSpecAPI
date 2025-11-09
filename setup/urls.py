@@ -14,6 +14,7 @@ api_patterns = [
     path("accounts/", include("apps.accounts.urls")),
     path("authentication/", include("apps.authentication.urls")),
     path("constructions/", include("apps.constructions.urls")),
+    path("documents/", include("apps.documents.urls")),
 ]
 
 schema_view = get_schema_view(

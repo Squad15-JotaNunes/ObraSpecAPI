@@ -44,10 +44,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_yasg",
     "rest_framework",
     "corsheaders",
     "simple_history",
-    "drf_yasg",
     "apps.core",
     "apps.accounts",
     "apps.authentication",
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "apps.referentials",
     "apps.elements",
     "apps.areas",
+    "apps.documents",
 ]
 
 
