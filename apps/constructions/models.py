@@ -2,6 +2,7 @@ from django.db import models
 from apps.observations.models import Observation
 from django.core.validators import MinValueValidator
 from apps.referentials.models import Referential
+from django.utils import timezone
 
 from django.utils.translation import gettext_lazy as _
 
@@ -42,6 +43,10 @@ class Construction(models.Model):
         verbose_name=_("Observations"),
         related_name="constructions",
     )
+
+    aprovation_status = models.BooleanField(default=False, verbose_name=_("Aprovation status"))
+    creation_date = models.DateTimeField(verbose_name=_("Creation date"), default=timezone.now)
+    aprovation_observations = models.TextField(max_length=5000, blank=True, verbose_name=_("Aprovation observations"))
 
     is_active = models.BooleanField(default=True, verbose_name=_("Is active"))
 
