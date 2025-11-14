@@ -1,13 +1,12 @@
 from rest_framework import serializers
 from .models import Construction
 from apps.referentials.models import Referential
+from apps.referentials.serializers import ReferentialSerializer
 from apps.observations.serializers import ObservationSerializer
 
 
 class ConstructionSerializer(serializers.ModelSerializer):
-    referentials = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Referential.objects.all()
-    )
+    referentials = ReferentialSerializer(many=True, read_only=True)
     observations = ObservationSerializer(many=True, read_only=True)
 
     class Meta:
