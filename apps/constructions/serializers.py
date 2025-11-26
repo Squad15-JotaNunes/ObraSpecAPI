@@ -1,13 +1,20 @@
 from rest_framework import serializers
 from .models import Construction
 from apps.referentials.models import Referential
+from apps.observations.models import Observation
 from apps.referentials.serializers import ReferentialSerializer
 from apps.observations.serializers import ObservationSerializer
 
 
 class ConstructionSerializer(serializers.ModelSerializer):
-    referentials = ReferentialSerializer(many=True, read_only=True)
-    observations = ObservationSerializer(many=True, read_only=True)
+    referentials = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Referential.objects.all()
+    )
+    observations = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Observation.objects.all()
+    )
 
     class Meta:
         model = Construction
@@ -29,21 +36,19 @@ class ConstructionSerializer(serializers.ModelSerializer):
         observations = validated_data.pop("observations", [])
 
         construction = Construction.objects.create(**validated_data)
-
-        # associa os m2m após a criação
         construction.referentials.set(referentials)
         construction.observations.set(observations)
-
         return construction
 
-    def validate_project_name(self, value):
-        if len(value.strip()) <= 0:
-            raise serializers.ValidationError(
-                "The field project_name must not be empty"
-            )
-        return value
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
 
-    def validate_description(self, value):
-        if len(value.strip()) <= 0:
-            raise serializers.ValidationError("The field description must not be empty")
-        return value
+        representation["referentials"] = ReferentialSerializer(
+            instance.referentials.all(), many=True
+        ).data
+
+        representation["observations"] = ObservationSerializer(
+            instance.observations.all(), many=True
+        ).data
+
+        return representation
